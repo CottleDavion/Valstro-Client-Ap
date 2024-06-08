@@ -9,10 +9,12 @@ clone repo `git clone https://github.com/CottleDavion/Valstro-Client-App.git`
 
 ### npm
 run `npm install`
+
 run `npm start`
 
 ### docker
 run `docker build -t client:local .`
+
 run `docker run --rm -it --network="host" client:local`
 
 
