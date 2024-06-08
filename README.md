@@ -4,6 +4,18 @@ This application was created utilizing node.js and the socket.io-client to commu
 
 There are two parts to the application, the app.js entry point and the message-service that handles communication to the server.
 
+## Run instructions
+clone repo `git clone https://github.com/CottleDavion/Valstro-Client-App.git`
+
+### npm
+run `npm install`
+run `npm start`
+
+### docker
+run `docker build -t client:local .`
+run `docker run --rm -it --network="host" client:local`
+
+
 ### Message Service
 The message service initializes the socket.io connection and sets up the messaging events for search and disconnection.  It also provides two callback functions that are utilized by app.js
 
