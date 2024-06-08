@@ -1,14 +1,11 @@
 import { io } from "socket.io-client";
 import { QueryResults } from "./result";
-import { EventEmitter } from "stream";
 
 export class MessageService {
   private socket = io("http://localhost:3000", {timeout: 1000});
   private connected = false;
 
   private activeMessages: any[] = []
-  private messageReceived = new EventEmitter()
-  private disconnectListener: any
 
   constructor() {
     this.socket.on("connect", () => {
@@ -23,7 +20,6 @@ export class MessageService {
   public startEventListening() {
       this.socket.on("search", (...args: QueryResults[]) => {
         this.activeMessages.push(args);
-        // this.messageReceived.emit("newMessage");
         console.log(`\n`)
         args.forEach(match => {
           if(match.error){
@@ -38,10 +34,14 @@ export class MessageService {
   }
 
   public search(value: string){
+    if(this.activeMessages.length > 0)
+    {
+      return;
+    }
     this.socket.emit("search", {query: value})
   }
   
-  public shouldClose(): boolean {
+  public isConnected(): boolean {
     return (this.connected == false)
   }
 
